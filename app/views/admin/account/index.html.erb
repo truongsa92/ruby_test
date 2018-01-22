@@ -1,0 +1,32 @@
+<div class="container">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: "alert alert-danger" %>
+  <% end %>
+  <h2>List Account</h2>
+  <a class="btn btn-primary" href=<%=admin_new_user_path%> >Add Account</a>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>pass</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @accounts.each do |acc| %>
+        <tr>
+          <td> <%=acc.id%> </td>
+          <td> <%=acc.email%> </td>
+          <td> <%=acc.password%> </td>
+          <td width="100px">
+            <form method="post" action=<%=admin_delete_user_path acc.id%>>
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+          <td width="100px"><a class="btn btn-info" href=<%=admin_edit_user_path acc.id%>>Edit</a></td>
+          <td width="100px"><a class="btn btn-success" href=<%=admin_show_user_path acc.id%>>View</a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>

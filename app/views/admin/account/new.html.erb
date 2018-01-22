@@ -1,0 +1,68 @@
+<div class="container">
+  <% if @account.errors.any? %>
+    <div class ="alert alert-danger">
+      <% @account.errors.full_messages.each do |error_message| %>
+        <li><%=error_message%></li>
+      <% end %>
+    </div>
+  <% else %>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: "alert alert-success" %>
+    <% end %>
+  <% end %>
+  <a class="btn btn-info" href=<%=admin_list_user_path%> >List User</a>
+  <%= form_for @account, url: {action: "create"}, html: {class: "form-horizontal"}, method: "post" do |f| %>
+    <h1 style="text-align: center"> Create User </h1>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Email:</label>
+      <div class="col-sm-10">
+        <%= f.email_field(:email, id: :email, name: "account[email]",class: "form-control",  placeholder: "Enter email")%>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-10">
+        <%= f.text_field(:name, id: :name, name: "account[name]",class: "form-control",  placeholder: "Enter Your Name")%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-10"> 
+        <%= f.password_field(:password, id: :password, name: "account[password]", class: "form-control",  placeholder: "Enter password")%>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="confPwd">Confirm Password:</label>
+      <div class="col-sm-10"> 
+        <%= f.password_field(:password, id: :confPwd, name: "account[password_confirmation]", class: "form-control",  placeholder: "Confirm password")%>
+      </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2 control-label">Status</label>
+        <div class="col-sm-10"">
+            <label class="radio-inline"> <%= f.radio_button(:status, 1) %> Enable </label>
+            <label class="radio-inline"> <%= f.radio_button(:status, 2) %> Banned </label>
+            <label class="radio-inline"> <%= f.radio_button(:status, 3) %> Blocked </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-2 control-label">Role</label>
+        <div class="col-sm-10"">
+            <label class="radio-inline"> <%= f.radio_button(:role, 1) %> Admin </label>
+            <label class="radio-inline"> <%= f.radio_button(:role, 2) %> Customer </label>
+        </div>
+    </div>
+
+    <div class="form-group"> 
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit(value: "Submit", class: "btn btn-primary") %>
+      </div>
+    </div>
+  <% end %>
+</div>
